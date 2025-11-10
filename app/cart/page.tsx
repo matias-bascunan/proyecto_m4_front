@@ -1,5 +1,6 @@
 "use client"
 import { useState } from 'react'
+import Image from 'next/image'
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { useCart } from '../../context/CartContext'
@@ -76,8 +77,7 @@ const {dataUser} = useAuth();
                             items.map((item) => (
                               <li key={item.id} className="flex py-6">
                                 <div className="size-24 shrink-0 overflow-hidden rounded-md border border-gray-200 bg-gray-50">
-                                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                                  <img alt={item.name} src={item.image} className="size-full object-cover" />
+                                  <Image alt={item.name} src={item.image} width={96} height={96} className="size-full object-cover" />
                                 </div>
 
                                 <div className="ml-4 flex flex-1 flex-col">
