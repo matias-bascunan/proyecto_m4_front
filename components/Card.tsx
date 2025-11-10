@@ -8,12 +8,15 @@ interface CardProps {
 }
 function Card({product}: CardProps) {
   const href = product.id ? `/product/${product.id}` : undefined;
+  const imageSrc = product.image && (product.image.startsWith('http://') || product.image.startsWith('https://'))
+    ? product.image
+    : `${process.env.NEXT_PUBLIC_API_URL}${product.image ?? ''}`;
 
   const content = (
     <div className="max-w-sm bg-linear-to-br from-white via-gray-100 to-yellow-50 p-4 rounded-lg shadow hover:shadow-xl transition-transform hover:scale-105 cursor-pointer flex flex-col">
       <div className="w-full aspect-4/3 flex items-center justify-center overflow-hidden rounded-md bg-gray-50 relative">
         <Image
-          src={product.image}
+          src={imageSrc}
           alt={product.name}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"

@@ -12,6 +12,9 @@ export default
 async function ProductDetailPage({params}:ProductDetailProps) {
   const{idProduct}= await params;
   const product = await getProductById(idProduct);
+  const imageSrc = product.image && (product.image.startsWith('http://') || product.image.startsWith('https://'))
+    ? product.image
+    : `${process.env.NEXT_PUBLIC_API_URL}${product.image ?? ''}`;
   return (
     <div className="bg-white">
       <div className="pt-6">
@@ -20,7 +23,7 @@ async function ProductDetailPage({params}:ProductDetailProps) {
           <div className="row-span-2 w-full aspect-3/4 overflow-hidden rounded-lg bg-gray-50 flex items-center justify-center max-lg:hidden">
             <Image
               alt={product.name}
-              src={product.image}
+              src={imageSrc}
               width={800}
               height={800}
               className="w-full h-full object-contain p-4"
