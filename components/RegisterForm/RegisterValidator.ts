@@ -20,7 +20,7 @@ export const registerInitialValues: RegisterFormValuesInterface = {
 export const registerFormValidationSchema = Yup.object({
     email: Yup.string().email('El email es invalido').required('Este campo es obligatorio'),
     password: Yup.string()
-        .min(6, 'La contraseÑa debe tener al menos 6 digitos')
+        .min(6, 'La contraseña debe tener al menos 6 digitos')
         .max(12, 'La contraseña puede tener un maximo de 12 digitos')
         .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9]).+$/, 'Debe incluir mayuscula, minuscula y simbolo')
         .required('Este campo es obligatorio'),

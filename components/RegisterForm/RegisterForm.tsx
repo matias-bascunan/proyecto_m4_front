@@ -10,6 +10,8 @@ function RegisterForm() {
     const formik = useFormik<RegisterFormValuesInterface>({
         initialValues: registerInitialValues,
         validationSchema: registerFormValidationSchema,
+        validateOnChange: true,
+        validateOnBlur: true,
         onSubmit: async (values, { resetForm }) => {
             const response = await registerUser(values);
             console.log(response);
@@ -32,6 +34,7 @@ function RegisterForm() {
                         name="email"
                         value={formik.values.email}
                         onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                     />
                     {formik.errors.email && <p className="text-sm text-red-600">{formik.errors.email}</p>}
                 </div>
@@ -47,6 +50,7 @@ function RegisterForm() {
                         name="password"
                         value={formik.values.password}
                         onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                     />
                     {formik.errors.password && <p className="text-sm text-red-600">{formik.errors.password}</p>}
                 </div>
@@ -62,6 +66,7 @@ function RegisterForm() {
                         name="confirmPassword"
                         value={formik.values.confirmPassword}
                         onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                     />
                     {formik.errors.confirmPassword && <p className="text-sm text-red-600">{formik.errors.confirmPassword}</p>}
                 </div>
@@ -77,6 +82,7 @@ function RegisterForm() {
                         name="name"
                         value={formik.values.name}
                         onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                     />
                     {formik.errors.name && <p className="text-sm text-red-600">{formik.errors.name}</p>}
                 </div>
@@ -92,6 +98,7 @@ function RegisterForm() {
                         name="address"
                         value={formik.values.address}
                         onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                     />
                     {formik.errors.address && <p className="text-sm text-red-600">{formik.errors.address}</p>}
                 </div>
@@ -107,7 +114,9 @@ function RegisterForm() {
                         name="phone"
                         value={formik.values.phone}
                         onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                     />
+                    {formik.errors.phone && <p className="text-sm text-red-600">{formik.errors.phone}</p>}
                 </div>
 
                 <div>
