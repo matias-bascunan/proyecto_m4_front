@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import {IProduct} from '../product.interface'
+import Image from 'next/image';
 
 interface CardProps {
     product: IProduct;
@@ -12,7 +13,7 @@ function Card({product}: CardProps) {
     <div className="max-w-sm bg-linear-to-br from-white via-gray-100 to-yellow-50 p-4 rounded-lg shadow hover:shadow-xl transition-transform hover:scale-105 cursor-pointer flex flex-col">
       <div className="w-full aspect-4/3 flex items-center justify-center overflow-hidden rounded-md bg-gray-50">
        
-        <img src={product.image} alt={product.name} className="w-full h-full object-contain p-2" />
+        <Image src={product.image} alt={product.name} className="w-full h-full object-contain p-2" />
       </div>
 
       <div className="mt-4 flex-1">
