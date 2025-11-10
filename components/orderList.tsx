@@ -111,17 +111,20 @@ function OrderList() {
                                                                                         <ul className="divide-y divide-gray-100">
                                                                                             {entries.map(([id, v]) => (
                                                                                                 <li key={id} className="flex items-center gap-4 py-2">
-                                                                                                    <div className="w-12 h-12 shrink-0 overflow-hidden rounded-md bg-gray-50">
-
-                                                                                                        <Image src={v.image} alt={v.productName} width={80} height={80} className="w-full h-full object-cover" />
-                                                                                                    </div>
-                                                                                                    <div className="flex-1">
-                                                                                                        <div className="text-sm font-medium text-gray-900">{v.productName}</div>
-                                                                                                        <div className="text-xs text-gray-500">Precio unitario: ${Number(v.price).toLocaleString()}</div>
-                                                                                                    </div>
-                                                                                                    <div className="text-sm text-gray-700">{v.qty} ×</div>
-                                                                                                    <div className="text-sm font-medium">${(v.qty * (v.price || 0)).toLocaleString()}</div>
-                                                                                                </li>
+                                                                                                        <div className="w-12 h-12 shrink-0 overflow-hidden rounded-md bg-gray-50">
+                                                                                                            {v.image ? (
+                                                                                                                <Image src={v.image as string} alt={v.productName} width={80} height={80} className="w-full h-full object-cover" />
+                                                                                                            ) : (
+                                                                                                                <div className="w-full h-full flex items-center justify-center text-xs text-gray-500">No image</div>
+                                                                                                            )}
+                                                                                                        </div>
+                                                                                                        <div className="flex-1">
+                                                                                                            <div className="text-sm font-medium text-gray-900">{v.productName}</div>
+                                                                                                            <div className="text-xs text-gray-500">Precio unitario: ${Number(v.price).toLocaleString()}</div>
+                                                                                                        </div>
+                                                                                                        <div className="text-sm text-gray-700">{v.qty} ×</div>
+                                                                                                        <div className="text-sm font-medium">${(v.qty * (v.price || 0)).toLocaleString()}</div>
+                                                                                                    </li>
                                                                                             ))}
                                                                                         </ul>
                                                                                         <div className="mt-3 text-right text-sm font-semibold">Total: ${Number(total).toLocaleString()}</div>
