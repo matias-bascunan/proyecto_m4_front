@@ -1,6 +1,4 @@
-import Image from "next/image";
 import Card from "../components/Card";
-import { mockProducts } from "../helpers/mockProducts";
 import { getAllProducts } from "../services/product.services";
 
 export default async function HomePage() {

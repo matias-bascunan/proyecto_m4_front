@@ -26,8 +26,9 @@ const handleCheckout = async () => {
   try {
     await createOrder (getIdItems (), dataUser.token );
     clearCart();
-  } catch (error:any) {
-    throw new Error (error)
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : String(error)
+    throw new Error(message)
     
   }
 };

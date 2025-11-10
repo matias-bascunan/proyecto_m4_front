@@ -1,4 +1,4 @@
-import { StarIcon } from '@heroicons/react/20/solid'
+import Image from 'next/image'
 import { getProductById } from "../../../services/product.services";
 import AddCartButton from '../../../components/AddCartButton';
 interface ProductDetailProps {
@@ -18,9 +18,11 @@ async function ProductDetailPage({params}:ProductDetailProps) {
        
         <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-8 lg:px-8">
           <div className="row-span-2 w-full aspect-3/4 overflow-hidden rounded-lg bg-gray-50 flex items-center justify-center max-lg:hidden">
-            <img
+            <Image
               alt={product.name}
               src={product.image}
+              width={800}
+              height={800}
               className="w-full h-full object-contain p-4"
             />
           </div>

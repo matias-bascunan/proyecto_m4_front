@@ -1,5 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react'
+import Image from 'next/image'
 import { Order } from '../interfaces/orders.interface'
 import { useAuth } from '../context/AuthContext';
 import { getAllOrders } from '../services/orders.services';
@@ -23,7 +24,7 @@ function OrderList() {
         try {
             const ordersResponse = await getAllOrders(dataUser?.token);
             setOrders(ordersResponse);
-        } catch (error:any) {
+        } catch (error: unknown) {
             console.error ("Este es el error", error)
         setError('Hubo un error');
         setOrders([]);
@@ -104,7 +105,7 @@ function OrderList() {
                                                                                         else map.set(id, { productName: p.name, qty: 1, price: p.price, image: p.image });
                                                                                 });
                                                                                 const entries = Array.from(map.entries());
-                                                                                const total = entries.reduce((sum, [_id, v]) => sum + v.qty * (v.price || 0), 0);
+                                                                                const total = entries.reduce((sum, [, v]) => sum + v.qty * (v.price || 0), 0);
                                                                                 return (
                                                                                     <div>
                                                                                         <ul className="divide-y divide-gray-100">
@@ -112,7 +113,7 @@ function OrderList() {
                                                                                                 <li key={id} className="flex items-center gap-4 py-2">
                                                                                                     <div className="w-12 h-12 shrink-0 overflow-hidden rounded-md bg-gray-50">
 
-                                                                                                        <img src={v.image} alt={v.productName} className="w-full h-full object-cover" />
+                                                                                                        <Image src={v.image} alt={v.productName} width={80} height={80} className="w-full h-full object-cover" />
                                                                                                     </div>
                                                                                                     <div className="flex-1">
                                                                                                         <div className="text-sm font-medium text-gray-900">{v.productName}</div>

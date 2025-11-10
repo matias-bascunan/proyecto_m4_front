@@ -20,7 +20,7 @@ function LoginForm() {
                 setDataUser(response);
                 resetForm();
                 router.push("/dashboard");
-            } catch (err: any) {
+            } catch (err: unknown) {
                 console.error("loginUser error", err);
                 // podríamos mostrar un mensaje al usuario aquí
             } finally {
