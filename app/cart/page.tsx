@@ -4,6 +4,7 @@ import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/re
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
 import { useCart } from '../../context/CartContext'
+import { IProduct } from '../../interfaces/product.interface'
 import { useAuth } from '../../context/AuthContext'
 import { createOrder } from '../../services/orders.services'
 import { useRouter } from 'next/navigation'
@@ -39,7 +40,7 @@ const handleCheckout = async () => {
     
   }
 };
-const items = Array.isArray(cartItems) ? cartItems : [];
+const items: IProduct[] = Array.isArray(cartItems) ? (cartItems as IProduct[]) : [];
 const {dataUser} = useAuth();
 const router = useRouter();
 
@@ -80,8 +81,8 @@ const router = useRouter();
                         <ul role="list" className="-my-6 divide-y divide-gray-200">
                           {items.length === 0 ? (
                             <li className="py-6 text-gray-600">Tu carrito está vacío</li>
-                          ) : (
-                            items.map((item) => (
+                            ) : (
+                            items.map((item: IProduct) => (
                               <li key={item.id} className="flex py-6">
                                 <div className="size-24 shrink-0 overflow-hidden rounded-md border border-gray-200 bg-gray-50">
                                   <Image
