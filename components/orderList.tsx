@@ -111,14 +111,15 @@ function OrderList() {
                                                                                         <ul className="divide-y divide-gray-100">
                                                                                             {entries.map(([id, v]) => (
                                                                                                 <li key={id} className="flex items-center gap-4 py-2">
-                                                                                                        <div className="w-12 h-12 shrink-0 overflow-hidden rounded-md bg-gray-50">
+                                                                                                        <div className="w-12 h-12 shrink-0 overflow-hidden rounded-md bg-gray-50 relative">
                                                                                                             {v.image ? (
                                                                                                                <Image
-                                                                                                                   src={(v.image && (v.image as string).startsWith('http')) ? (v.image as string) : `${process.env.NEXT_PUBLIC_API_URL}${v.image ?? ''}`}
+                                                                                                                   src={(v.image as string).startsWith('http') ? (v.image as string) : (process.env.NEXT_PUBLIC_API_URL ? `${process.env.NEXT_PUBLIC_API_URL}${v.image}` : '/next.svg')}
                                                                                                                    alt={v.productName}
                                                                                                                    width={80}
                                                                                                                    height={80}
-                                                                                                                   className="w-full h-full object-cover"
+                                                                                                                   loading="lazy"
+                                                                                                                   className="object-cover"
                                                                                                                />
                                                                                                             ) : (
                                                                                                                 <div className="w-full h-full flex items-center justify-center text-xs text-gray-500">No image</div>

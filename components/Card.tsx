@@ -1,26 +1,33 @@
 import React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import {IProduct} from '../product.interface'
-import Image from 'next/image';
 
 interface CardProps {
     product: IProduct;
 }
 function Card({product}: CardProps) {
   const href = product.id ? `/product/${product.id}` : undefined;
-  const imageSrc = product.image && (product.image.startsWith('http://') || product.image.startsWith('https://'))
-    ? product.image
-    : `${process.env.NEXT_PUBLIC_API_URL}${product.image ?? ''}`;
+  let imageSrc = '/next.svg';
+  if (product.image) {
+    if (product.image.startsWith('http://') || product.image.startsWith('https://')) {
+      imageSrc = product.image;
+    } else if (process.env.NEXT_PUBLIC_API_URL) {
+      imageSrc = `${process.env.NEXT_PUBLIC_API_URL}${product.image}`;
+    }
+  }
 
   const content = (
     <div className="max-w-sm bg-linear-to-br from-white via-gray-100 to-yellow-50 p-4 rounded-lg shadow hover:shadow-xl transition-transform hover:scale-105 cursor-pointer flex flex-col">
-      <div className="w-full aspect-4/3 flex items-center justify-center overflow-hidden rounded-md bg-gray-50 relative">
+      <div className="w-full aspect-4/3 overflow-hidden rounded-md bg-gray-50 relative">
+        {/* next/image with fill ensures proper sizing and optimization for external urls (requires next.config images.remotePatterns) */}
         <Image
           src={imageSrc}
           alt={product.name}
           fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          loading="lazy"
           className="object-contain p-2"
+          sizes="(max-width: 640px) 100vw, 33vw"
         />
       </div>
 

@@ -1,6 +1,6 @@
-import Image from 'next/image'
 import { getProductById } from "../../../services/product.services";
 import AddCartButton from '../../../components/AddCartButton';
+import Image from 'next/image';
 interface ProductDetailProps {
     params: {
         idProduct: string;
@@ -12,21 +12,28 @@ export default
 async function ProductDetailPage({params}:ProductDetailProps) {
   const{idProduct}= await params;
   const product = await getProductById(idProduct);
-  const imageSrc = product.image && (product.image.startsWith('http://') || product.image.startsWith('https://'))
-    ? product.image
-    : `${process.env.NEXT_PUBLIC_API_URL}${product.image ?? ''}`;
+  let imageSrc = '/next.svg';
+  if (product.image) {
+    if (product.image.startsWith('http://') || product.image.startsWith('https://')) {
+      imageSrc = product.image;
+    } else if (process.env.NEXT_PUBLIC_API_URL) {
+      imageSrc = `${process.env.NEXT_PUBLIC_API_URL}${product.image}`;
+    }
+  }
   return (
     <div className="bg-white">
       <div className="pt-6">
        
         <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-8 lg:px-8">
-          <div className="row-span-2 w-full aspect-3/4 overflow-hidden rounded-lg bg-gray-50 flex items-center justify-center max-lg:hidden">
+          <div className="row-span-2 w-full aspect-3/4 overflow-hidden rounded-lg bg-gray-50 relative max-lg:hidden">
             <Image
               alt={product.name}
               src={imageSrc}
               width={800}
               height={800}
-              className="w-full h-full object-contain p-4"
+              loading="lazy"
+              className="object-contain p-4"
+              sizes="(max-width: 1024px) 100vw, 33vw"
             />
           </div>
         </div>
