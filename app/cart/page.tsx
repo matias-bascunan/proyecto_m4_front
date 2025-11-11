@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
+import Image from 'next/image'
 import { useCart } from '../../context/CartContext'
 import { useAuth } from '../../context/AuthContext'
 import { createOrder } from '../../services/orders.services'
@@ -76,13 +77,13 @@ const {dataUser} = useAuth();
                             items.map((item) => (
                               <li key={item.id} className="flex py-6">
                                 <div className="size-24 shrink-0 overflow-hidden rounded-md border border-gray-200 bg-gray-50">
-                                  <img
+                                  <Image
                                     alt={item.name}
-                                    src={(item.image && (item.image.startsWith('http://') || item.image.startsWith('https://'))) ? item.image : `${process.env.NEXT_PUBLIC_API_URL}${item.image ?? ''}`}
+                                    src={(item.image && (item.image.startsWith('http://') || item.image.startsWith('https://'))) ? item.image : (process.env.NEXT_PUBLIC_API_URL ? `${process.env.NEXT_PUBLIC_API_URL}${item.image ?? ''}` : '/next.svg')}
                                     width={96}
                                     height={96}
                                     loading="lazy"
-                                    className="size-full object-cover"
+                                    className="object-cover"
                                   />
                                 </div>
 
