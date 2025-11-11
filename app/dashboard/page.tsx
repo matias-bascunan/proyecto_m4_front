@@ -49,7 +49,7 @@ function DashboardPage() {
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold mb-4">Pedidos</h2>
+            <h2 className="text-30px font-semibold mb-4">Aquí podrás ver tus pedidos</h2>
             <OrderList/>
           </section>
         </div>

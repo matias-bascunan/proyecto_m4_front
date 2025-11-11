@@ -20,7 +20,6 @@ const remotePatterns: Array<{
   },
 ];
 
-// If a public API URL is provided via env (used in Vercel), allow images from that host
 if (process.env.NEXT_PUBLIC_API_URL) {
   try {
     const apiUrl = new URL(process.env.NEXT_PUBLIC_API_URL);
@@ -32,16 +31,24 @@ if (process.env.NEXT_PUBLIC_API_URL) {
       pathname: '/**',
     });
   } catch (e) {
-    // ignore invalid URL
   }
 }
 
 const nextConfig: NextConfig = {
   images: {
-    // cast to any because RemotePattern typing is strict; we construct patterns dynamically
     remotePatterns: remotePatterns as any,
-    // allow common external hosts used in examples (e.g. tailwind example images)
-    domains: ['tailwindcss.com'],
+    domains: [
+      'tailwindcss.com',
+      'www.swingcitymusic.com',
+      'www.gibson.com',
+      'graysonstunetown.com',
+      'www.musicalesdoris.com',
+      'musiccitycanada.com',
+      'musicworks.cl',
+      'www.sanrio.com',
+      'cdn.shopify.com',
+      'images.unsplash.com',
+    ],
   },
 };
 

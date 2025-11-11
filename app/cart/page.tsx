@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { useCart } from '../../context/CartContext'
 import { useAuth } from '../../context/AuthContext'
 import { createOrder } from '../../services/orders.services'
+import { useRouter } from 'next/navigation'
 
 function CartPage() {
 
@@ -27,14 +28,20 @@ const handleCheckout = async () => {
   try {
     await createOrder (getIdItems (), dataUser.token );
     clearCart();
+      // Cerrar el panel y redirigir al dashboard después del pago
+      setOpen(false);
+      router.push('/dashboard');
+
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : String(error)
-    throw new Error(message)
+    // mostrar error al usuario en vez de romper la app
+    alert(`Error al crear la orden: ${message}`)
     
   }
 };
 const items = Array.isArray(cartItems) ? cartItems : [];
 const {dataUser} = useAuth();
+const router = useRouter();
 
     return (
     <div>
@@ -46,7 +53,7 @@ const {dataUser} = useAuth();
 
         <div className="fixed inset-0 overflow-hidden">
           <div className="absolute inset-0 overflow-hidden">
-            <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10 sm:pl-16">
+            <div className="pointer-events-none fixed top-25 bottom-0 right-0 flex max-w-full pl-10 sm:pl-16">
               <DialogPanel
                 transition
                 className="pointer-events-auto w-screen max-w-md transform transition duration-500 ease-in-out data-closed:translate-x-full sm:duration-700"
@@ -123,10 +130,10 @@ const {dataUser} = useAuth();
                     <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                     <div className="mt-6">
                       <button
-                        onClick={clearCart}
-                        className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-xs hover:bg-indigo-700"
+                        onClick={!dataUser ? getLogin : handleCheckout}
+                        className="flex items-center justify-center rounded-md border border-transparent bg-amber-400 px-6 py-3 text-base font-medium text-white shadow-xs hover:bg-red-600"
                       >
-                        Vaciar Carrito
+                       {!dataUser ? 'Inicia sesión para continuar' : 'Proceder al pago'} 
                       </button>
                     </div>
                     <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
@@ -134,10 +141,10 @@ const {dataUser} = useAuth();
                         or{' '}
                         <button
                           type="button"
-                          onClick={!dataUser ? getLogin : handleCheckout}
-                          className="font-medium text-indigo-600 hover:text-indigo-500"
+                          onClick={clearCart}
+                          className="font-medium text-amber-500 hover:text-red-600"
                         >
-                          {!dataUser ? 'Inicia sesión para continuar' : 'Proceder al pago'}
+                         Vaciar carrito 
                         </button>
                       </div>
                     </div>

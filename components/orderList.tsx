@@ -149,7 +149,7 @@ function OrderList() {
             </div>
         ) : (
             <div>
-                <p>No tienes ordenes todavía</p>
+                <p className= "font-bold text-red-800">No tienes ordenes todavía</p>
             </div>
         )
         }
